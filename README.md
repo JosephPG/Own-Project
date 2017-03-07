@@ -1,4 +1,4 @@
-#Own Project
+#Own Project (En desarrollo)
 
-En desarrollo, ver el branch develop.
-Por ahora se esta desarrollando la parte del login a nivel offline.\n
+Por ahora se esta desarrollando la parte del login a nivel offline.                                                                   
+Ver branch develop.
