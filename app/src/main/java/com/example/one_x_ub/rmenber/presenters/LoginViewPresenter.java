@@ -1,6 +1,9 @@
 package com.example.one_x_ub.rmenber.presenters;
 
+import android.Manifest;
+
 import com.example.one_x_ub.rmenber.database.CRUD;
+import com.example.one_x_ub.rmenber.resources.ManageFile;
 import com.example.one_x_ub.rmenber.resources.Permission;
 import com.example.one_x_ub.rmenber.resources.ViewDialog;
 import com.example.one_x_ub.rmenber.interfaces.ILoginPresenter;
@@ -16,6 +19,7 @@ public class LoginViewPresenter implements ILoginPresenter{
     private ILoginView view;
     private Login login;
     private Permission permission;
+    private ManageFile manageFile;
 
     @Override
     public void onCreate(ILoginView view){
@@ -38,7 +42,12 @@ public class LoginViewPresenter implements ILoginPresenter{
 
     @Override
     public void onLogin(String password){
-
+        manageFile = new ManageFile();
+        if((manageFile.checkFiles(manageFile.base, manageFile.dir, manageFile.roottxt)) == 0){
+            view.showMessage("En este punto se valida el login");
+        }else{
+            view.showMessage("La primera vez se debe bloquear, sino es q no estaban archivos");
+        }
     }
 
     @Override

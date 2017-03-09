@@ -15,6 +15,12 @@ public class Login implements DBConstants{
     private String password;
     private int status;
 
+    private String[] textparam;
+    private String[] textsalt;
+
+    private String[] level_tema;
+    private String[] level_cod;
+
     private CRUD crud;
 
     public Login(CRUD crud){
@@ -52,4 +58,13 @@ public class Login implements DBConstants{
             }
         }
     }
+
+    public void selectLoginState(){
+        /** Obtener salt y la clave **/
+    }
+
+    public void selectLoginTema(){
+        /** Obtener el tema y codigos **/
+    }
+
 }

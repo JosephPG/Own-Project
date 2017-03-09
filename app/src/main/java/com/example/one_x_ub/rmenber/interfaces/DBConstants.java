@@ -5,6 +5,9 @@ package com.example.one_x_ub.rmenber.interfaces;
  */
 
 public interface DBConstants {
+
+    /** Database **/
+
     final String Constants_DBNAME = "RRMEMBER";
     final String Constants_table = "login_data";
 
@@ -37,6 +40,7 @@ public interface DBConstants {
     final String Constants_status_data = "0";
     final String Constants_text_data = "'-'";
 
+    /** Query **/
 
     final String Constants_select_login_info = "select * from " + Constants_table + " where " +
                  Constants_id + "=" + Constants_id_data;
