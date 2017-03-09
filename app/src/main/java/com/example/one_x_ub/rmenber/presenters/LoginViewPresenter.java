@@ -1,5 +1,6 @@
 package com.example.one_x_ub.rmenber.presenters;
 
+import com.example.one_x_ub.rmenber.database.CRUD;
 import com.example.one_x_ub.rmenber.resources.Permission;
 import com.example.one_x_ub.rmenber.resources.ViewDialog;
 import com.example.one_x_ub.rmenber.interfaces.ILoginPresenter;
@@ -24,7 +25,15 @@ public class LoginViewPresenter implements ILoginPresenter{
     @Override
     public void checkPermits(){
         permission = view.onCreatePermits();
-        permission.checkPermissionWriteExternalStorage();
+        permission.checkPermission();
+    }
+
+    @Override
+    public void checkSession(){
+        login = new Login(view.onCreateCRUD());
+        if(login.getStatus() == 1){
+            view.goToMainActivity();
+        }
     }
 
     @Override

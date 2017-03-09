@@ -1,5 +1,6 @@
 package com.example.one_x_ub.rmenber;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.one_x_ub.rmenber.database.CRUD;
 import com.example.one_x_ub.rmenber.resources.Permission;
 import com.example.one_x_ub.rmenber.resources.ViewDialog;
 import com.example.one_x_ub.rmenber.interfaces.ILoginView;
@@ -34,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         loginViewPresenter = new LoginViewPresenter();
         loginViewPresenter.onCreate(this);
         loginViewPresenter.checkPermits();
+        loginViewPresenter.checkSession();
     }
 
     @Override
@@ -42,8 +45,18 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     }
 
     @Override
-    public void onClickLogin(View view){
+    public CRUD onCreateCRUD(){
+        return new CRUD(this);
+    }
 
+    @Override
+    public ViewDialog onCreateAlertDialog(){
+        return new ViewDialog(this, R.layout.change_password);
+    }
+
+    @Override
+    public void onClickLogin(View view){
+        loginViewPresenter.onLogin(login_edtpassword.getText().toString());
     }
 
     @Override
@@ -63,8 +76,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     }
 
     @Override
-    public ViewDialog onCreateAlertDialog(){
-        return new ViewDialog(this, R.layout.change_password);
+    public void showMessage(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -90,12 +103,18 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        /** Llamar funcion para realizar accion despues de pedir permisos **/
-        switch(requestCode){
-            case 1:
+        /** Callback, llamado despues de solicitar permisos **/
+        if(requestCode == 1){
                 if(grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED){
                     loginViewPresenter.checkPermits();
                 }
         }
+    }
+
+    @Override
+    public void goToMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        finish();
+        startActivity(intent);
     }
 }
