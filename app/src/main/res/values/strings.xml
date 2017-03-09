@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Rmenber</string>
+
+    <!-- activity_login -->
+    <string name="login_edtpassword">Password</string>
+    <string name="login_btningresar">INGRESAR</string>
+    <string name="login_txtpista">Necesitas una pista?</string>
+    <string name="login_txtcambiarpass">Cambiar contraseña</string>
+
+    <!-- change_password -->
+    <string name="changepassword_title">CAMBIAR CONTRASEÑA</string>
+    <string name="changepassword_txtpassactual">Contraseña actual</string>
+    <string name="changepassword_txtpassnew">Contraseña nueva</string>
+    <string name="changepassword_txtAceptar">ACEPTAR</string>
+    <string name="changepassword_txtCancelar">CANCELAR</string>
+
+</resources>
