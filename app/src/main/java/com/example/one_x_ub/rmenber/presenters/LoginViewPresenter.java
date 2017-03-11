@@ -1,8 +1,6 @@
 package com.example.one_x_ub.rmenber.presenters;
 
-import android.Manifest;
-
-import com.example.one_x_ub.rmenber.database.CRUD;
+import com.example.one_x_ub.rmenber.resources.Cipher;
 import com.example.one_x_ub.rmenber.resources.ManageFile;
 import com.example.one_x_ub.rmenber.resources.Permission;
 import com.example.one_x_ub.rmenber.resources.ViewDialog;
@@ -20,6 +18,7 @@ public class LoginViewPresenter implements ILoginPresenter{
     private Login login;
     private Permission permission;
     private ManageFile manageFile;
+    private Cipher deny;
 
     @Override
     public void onCreate(ILoginView view){
@@ -43,6 +42,8 @@ public class LoginViewPresenter implements ILoginPresenter{
     @Override
     public void onLogin(String password){
         manageFile = new ManageFile();
+        deny = new Cipher(manageFile);
+
         if((manageFile.checkFiles(manageFile.base, manageFile.dir, manageFile.roottxt)) == 0){
             view.showMessage("En este punto se valida el login");
         }else{
