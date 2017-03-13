@@ -1,4 +1,4 @@
-package com.example.one_x_ub.rmenber.resources;
+package com.example.one_x_ub.rmenber.helpers;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,21 +10,21 @@ import java.util.ArrayList;
  * Created by one-x-ub on 09/03/17.
  */
 
-public class ManageFile {
+public class ManageFileHelper {
 
-    private final String msg = "********************************************";
+    private static final String msg = "********************************************";
 
-    public final String base = "sdcard";
-    public final String dir = "Rmenber";
-    public final String roottxt = ".OptionConfig.txt";
-    public final String dirbase = base + "/" + dir + "/";
+    public static final String base = "sdcard";
+    public static final String dir = "Rmenber";
+    public static final String roottxt = ".OptionConfig.txt";
+    public static final String dirbase = base + "/" + dir + "/";
 
 
-    public String getLocateBase(String locate, String dir){
+    public static String getLocateBase(String locate, String dir){
         return locate + "/" + dir + "/";
     }
 
-    public int checkFiles(String locate, String dir, String filename){
+    public static int checkFiles(String locate, String dir, String filename){
         // 0 = ok
         // 1 = dir and/or txt not exist
         int result = 0;
@@ -40,7 +40,7 @@ public class ManageFile {
         return result;
     }
 
-    public boolean checkDir(String locate, String dir){
+    public static boolean checkDir(String locate, String dir){
         boolean resp = true;
         File file = new File(locate, dir);
         try {
@@ -54,7 +54,7 @@ public class ManageFile {
         return resp;
     }
 
-    public boolean checkTxt(String locate, String filename){
+    public static boolean checkTxt(String locate, String filename){
         boolean resp = true;
         File file = new File(locate, filename);
         try {
@@ -70,7 +70,7 @@ public class ManageFile {
         return resp;
     }
 
-    public ArrayList getLines(String locate, String filename){
+    public static ArrayList getLines(String locate, String filename){
         File file = new File(locate, filename);
         ArrayList<String> buffer = new ArrayList<String>();
         try {

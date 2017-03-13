@@ -1,24 +1,22 @@
-package com.example.one_x_ub.rmenber.resources;
+package com.example.one_x_ub.rmenber.ui.views;
 
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.example.one_x_ub.rmenber.R;
-
 /**
- * Created by one-x-ub on 01/03/17.
+ * Created by one-x-ub on 13/03/17.
  */
 
-public class ViewDialog {
+public class AlertDialogView {
 
     private Activity activity;
     private AlertDialog alertDialog;
     private View view;
     private int resources_xml;
 
-    public ViewDialog(Activity activity, int resources_xml){
+    public AlertDialogView(Activity activity, int resources_xml){
         this.activity = activity;
         this.resources_xml = resources_xml;
     }

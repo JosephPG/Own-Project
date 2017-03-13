@@ -1,4 +1,4 @@
-package com.example.one_x_ub.rmenber.resources;
+package com.example.one_x_ub.rmenber.helpers;
 
 import android.Manifest;
 import android.app.Activity;
@@ -13,13 +13,13 @@ import android.widget.Toast;
  * Created by one-x-ub on 01/03/17.
  */
 
-public class Permission{
+public class PermissionHelper {
 
     private Activity activity;
     private Context context;
     private final int REQUEST_WRITE_EXTERNAL = 1;
 
-    public Permission(Activity activity, Context context){
+    public PermissionHelper(Activity activity, Context context){
         this.activity = activity;
         this.context = context;
     }

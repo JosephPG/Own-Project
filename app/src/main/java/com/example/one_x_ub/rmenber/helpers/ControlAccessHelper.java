@@ -1,4 +1,4 @@
-package com.example.one_x_ub.rmenber.resources;
+package com.example.one_x_ub.rmenber.helpers;
 
 import java.util.ArrayList;
 
@@ -6,11 +6,11 @@ import java.util.ArrayList;
  * Created by one-x-ub on 11/03/17.
  */
 
-public class DenyAccess {
+public class ControlAccessHelper {
 
-    private ManageFile manageFile;
+    private ManageFileHelper manageFile;
 
-    public DenyAccess(ManageFile manageFile){
+    public ControlAccessHelper(ManageFileHelper manageFile){
         this.manageFile = manageFile;
     }
 

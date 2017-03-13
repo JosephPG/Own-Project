@@ -4,8 +4,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.example.one_x_ub.rmenber.database.CRUD;
-import com.example.one_x_ub.rmenber.resources.Permission;
-import com.example.one_x_ub.rmenber.resources.ViewDialog;
+import com.example.one_x_ub.rmenber.helpers.PermissionHelper;
+import com.example.one_x_ub.rmenber.ui.views.AlertDialogView;
 
 /**
  * Created by one-x-ub on 01/03/17.
@@ -13,11 +13,11 @@ import com.example.one_x_ub.rmenber.resources.ViewDialog;
 
 public interface ILoginView {
 
-    public Permission onCreatePermits();
+    public PermissionHelper onCreatePermits();
 
     public CRUD onCreateCRUD();
 
-    public ViewDialog onCreateAlertDialog();
+    public AlertDialogView onCreateAlertDialog();
 
     public void onClickLogin(View view);
 

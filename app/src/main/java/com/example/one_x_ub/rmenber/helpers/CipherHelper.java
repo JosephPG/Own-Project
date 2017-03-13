@@ -1,4 +1,4 @@
-package com.example.one_x_ub.rmenber.resources;
+package com.example.one_x_ub.rmenber.helpers;
 
 import android.util.Base64;
 
@@ -10,7 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
  * Created by one-x-ub on 11/03/17.
  */
 
-public class Cipher {
+public class CipherHelper {
 
     private final String alg = "AES/CBC/PKCS5Padding";
     private final String alg_cipher = "AES";
@@ -23,14 +23,14 @@ public class Cipher {
     private IvParameterSpec ivParameterSpec;
     private SecretKey secretKey;
 
-    public Cipher(String data) throws Exception {
+    public CipherHelper(String data) throws Exception {
         this.data = data.getBytes();
         this.salt = generateSalt();
         this.ivParameterSpec = generateIvParameterSpec();
         this.secretKey = generateSecretKey();
     }
 
-    public Cipher(String data, String salt, String IV) throws Exception {
+    public CipherHelper(String data, String salt, String IV) throws Exception {
         this.data = Base64.decode(data, Base64.DEFAULT);
         this.salt = Base64.decode(salt, Base64.DEFAULT);
         this.ivParameterSpec = new IvParameterSpec(Base64.decode(IV, Base64.DEFAULT));

@@ -1,4 +1,4 @@
-package com.example.one_x_ub.rmenber;
+package com.example.one_x_ub.rmenber.ui.activities;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,11 +13,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.one_x_ub.rmenber.R;
 import com.example.one_x_ub.rmenber.database.CRUD;
-import com.example.one_x_ub.rmenber.resources.Permission;
-import com.example.one_x_ub.rmenber.resources.ViewDialog;
+import com.example.one_x_ub.rmenber.helpers.PermissionHelper;
 import com.example.one_x_ub.rmenber.interfaces.ILoginView;
 import com.example.one_x_ub.rmenber.presenters.LoginViewPresenter;
+import com.example.one_x_ub.rmenber.ui.views.AlertDialogView;
 
 public class LoginActivity extends AppCompatActivity implements ILoginView {
 
@@ -40,8 +41,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     }
 
     @Override
-    public Permission onCreatePermits(){
-        return new Permission(this, getApplicationContext());
+    public PermissionHelper onCreatePermits(){
+        return new PermissionHelper(this, getApplicationContext());
     }
 
     @Override
@@ -50,8 +51,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     }
 
     @Override
-    public ViewDialog onCreateAlertDialog(){
-        return new ViewDialog(this, R.layout.change_password);
+    public AlertDialogView onCreateAlertDialog(){
+        return new AlertDialogView(this, R.layout.change_password);
     }
 
     @Override

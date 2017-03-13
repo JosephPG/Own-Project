@@ -1,6 +1,6 @@
 package com.example.one_x_ub.rmenber.interfaces;
 
-import com.example.one_x_ub.rmenber.resources.ViewDialog;
+import com.example.one_x_ub.rmenber.ui.views.AlertDialogView;
 
 /**
  * Created by one-x-ub on 01/03/17.
@@ -16,6 +16,6 @@ public interface ILoginPresenter {
 
     public void onLogin(String password);
 
-    public Object[] getViewDialog(ViewDialog viewDialog);
+    public Object[] getViewDialog(AlertDialogView viewDialog);
 
 }
