@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -97,8 +98,15 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
            }
        });
 
+        /**
+       WindowManager.LayoutParams windowManager = new WindowManager.LayoutParams();
+       windowManager.copyFrom(alertDialog.getWindow().getAttributes());
+       windowManager.width = WindowManager.LayoutParams.WRAP_CONTENT;
+       windowManager.height = WindowManager.LayoutParams.WRAP_CONTENT;
+       **/
        alertDialog.show();
        alertDialog.setCancelable(false);
+       //alertDialog.getWindow().setAttributes(windowManager);
        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
