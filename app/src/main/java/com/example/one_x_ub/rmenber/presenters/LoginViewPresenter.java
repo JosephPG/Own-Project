@@ -41,9 +41,9 @@ public class LoginViewPresenter implements ILoginPresenter{
 
     @Override
     public void onLogin(String password){
-        deny = new ControlAccessHelper(manageFile);
-
-        if((manageFile.checkFiles(manageFile.base, manageFile.dir, manageFile.roottxt)) == 0){
+        deny = new ControlAccessHelper(manageFile, login);
+        if((manageFile.checkFiles(manageFile.base, manageFile.dir, manageFile.roottxt,
+            manageFile.optionmsg)) == 0){
             view.showMessage("En este punto se valida el login");
         }else{
             view.showMessage("La primera vez se debe bloquear, sino es q no estaban archivos");

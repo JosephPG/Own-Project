@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
            }
        });
 
-        /**
+       /**
        WindowManager.LayoutParams windowManager = new WindowManager.LayoutParams();
        windowManager.copyFrom(alertDialog.getWindow().getAttributes());
        windowManager.width = WindowManager.LayoutParams.WRAP_CONTENT;

@@ -2,8 +2,13 @@ package com.example.one_x_ub.rmenber.helpers;
 
 import android.util.Base64;
 
+import java.security.SecureRandom;
+
+import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
@@ -37,32 +42,48 @@ public class CipherHelper {
         this.secretKey = generateSecretKey();
     }
 
-    public byte[] generateSalt(){
+    private byte[] generateSalt(){
         byte[] salt = new byte[16];
-
-        /** FILL **/
-
+        SecureRandom secureRandom = new SecureRandom();
+        secureRandom.setSeed(secureRandom.generateSeed(12));
+        secureRandom.nextBytes(salt);
         return salt;
     }
 
-    public IvParameterSpec generateIvParameterSpec(){
+    private IvParameterSpec generateIvParameterSpec(){
         byte[] salt = generateSalt();
         return new IvParameterSpec(salt);
     }
 
-    public SecretKey generateSecretKey(){
-
-        /** FILL **/
-
-        SecretKeySpec key_AES = null;
+    private SecretKey generateSecretKey() throws Exception{
+        SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(PBKDF2);
+        PBEKeySpec pbeKeySpec = new PBEKeySpec(password.toCharArray(), salt, num_iteration,
+                                               key_bit);
+        SecretKey secretKey = secretKeyFactory.generateSecret(pbeKeySpec);
+        SecretKeySpec key_AES = new SecretKeySpec(secretKey.getEncoded(), alg_cipher);
         return key_AES;
     }
 
-    public void gEncrypt(){
-        /** FILL **/
+    public String getEncrypt() throws Exception{
+        Cipher cipher = Cipher.getInstance(alg);
+        cipher.init(cipher.ENCRYPT_MODE, secretKey, ivParameterSpec);
+        byte[] encrypt = cipher.doFinal(data);
+        return new String(Base64.encodeToString(encrypt, Base64.DEFAULT));
     }
 
-    public void gDecrypt(){
-        /** FILL **/
+    public String getDecrypt() throws Exception{
+        Cipher cipher = Cipher.getInstance(alg);
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec);
+        byte[] decrypt = cipher.doFinal(data);
+        return new String(decrypt, "UTF-8");
+    }
+
+    public String getSalt(){
+        return new String(Base64.encodeToString(salt, Base64.DEFAULT));
+    }
+
+    public String getIvParameter(){
+        byte[] iv = ivParameterSpec.getIV();
+        return new String(Base64.encodeToString(iv, Base64.DEFAULT));
     }
 }

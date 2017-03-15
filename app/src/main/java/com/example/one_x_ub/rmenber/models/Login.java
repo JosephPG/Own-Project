@@ -15,8 +15,10 @@ public class Login implements DBConstants{
     private String password;
     private int status;
 
-    private String[] textparam;
-    private String[] textsalt;
+    private String textparam_1;
+    private String textsalt_1;
+    private String textparam_2;
+    private String textsalt_2;
 
     private String[] level_tema;
     private String[] level_cod;
@@ -48,6 +50,38 @@ public class Login implements DBConstants{
         this.status = status;
     }
 
+    public String getTextparam_1(){
+        return textparam_1;
+    }
+
+    public void setTextparam_1(String textparam_1){
+        this.textparam_1 = textparam_1;
+    }
+
+    public String getTextparam_2(){
+        return textparam_2;
+    }
+
+    public void setTextparam_2(String textparam_2){
+        this.textparam_2 = textparam_2;
+    }
+
+    public String getTextsalt_1(){
+        return textsalt_1;
+    }
+
+    public void getTextsalt_1(String textsalt_1){
+        this.textsalt_1 = textsalt_1;
+    }
+
+    public String getTextsalt_2(){
+        return textsalt_2;
+    }
+
+    public void getTextsalt_2(String textsalt_2){
+        this.textsalt_2 = textsalt_2;
+    }
+
     public void selectLoginInfo(){
         if(password == null) {
             Cursor cursor = crud.getSelect(Constants_select_login_info);
@@ -55,13 +89,14 @@ public class Login implements DBConstants{
                 codigo = Integer.parseInt(cursor.getString(0));
                 password = cursor.getString(1);
                 status = Integer.parseInt(cursor.getString(2));
+                textparam_1 = cursor.getString(3);
+                textsalt_1 = cursor.getString(4);
+                textparam_2 = cursor.getString(5);
+                textsalt_2 = cursor.getString(6);
             }
         }
     }
 
-    public void selectLoginState(){
-        /** Obtener salt y la clave **/
-    }
 
     public void selectLoginTema(){
         /** Obtener el tema y codigos **/

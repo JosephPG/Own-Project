@@ -12,7 +12,9 @@ import java.util.ArrayList;
 
 public class ManageFileHelper {
 
-    private static final String msg = "********************************************";
+    public static final String msg = "********************************************";
+    private static final String msgfill = "ñññqwe12ññññqweqwe//dfs";
+    public static final String optionmsg = msg + "\n" + msgfill + "\n" + msgfill;
 
     public static final String base = "sdcard";
     public static final String dir = "Rmenber";
@@ -24,16 +26,16 @@ public class ManageFileHelper {
         return locate + "/" + dir + "/";
     }
 
-    public static int checkFiles(String locate, String dir, String filename){
+    public static int checkFiles(String locate, String dir, String filename, String message){
         // 0 = ok
         // 1 = dir and/or txt not exist
         int result = 0;
         if(!checkDir(locate, dir)){
-            checkTxt(getLocateBase(locate, dir), filename);
+            checkTxt(getLocateBase(locate, dir), filename, message);
             result = 1;
 
         }else{
-            if(!checkTxt(getLocateBase(locate, dir), filename)){
+            if(!checkTxt(getLocateBase(locate, dir), filename, message)){
                 result = 1;
             }
         }
@@ -54,13 +56,13 @@ public class ManageFileHelper {
         return resp;
     }
 
-    public static boolean checkTxt(String locate, String filename){
+    public static boolean checkTxt(String locate, String filename, String message){
         boolean resp = true;
         File file = new File(locate, filename);
         try {
             if(!file.exists()){
                 FileWriter fileWriter = new FileWriter(file);
-                fileWriter.write(msg);
+                fileWriter.write(message);
                 fileWriter.close();
                 resp = false;
             }
