@@ -70,7 +70,7 @@ public class Login implements DBConstants{
         return textsalt_1;
     }
 
-    public void getTextsalt_1(String textsalt_1){
+    public void setTextsalt_1(String textsalt_1){
         this.textsalt_1 = textsalt_1;
     }
 
@@ -78,7 +78,7 @@ public class Login implements DBConstants{
         return textsalt_2;
     }
 
-    public void getTextsalt_2(String textsalt_2){
+    public void setTextsalt_2(String textsalt_2){
         this.textsalt_2 = textsalt_2;
     }
 

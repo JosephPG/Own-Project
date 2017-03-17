@@ -18,7 +18,8 @@ public class LoginViewPresenter implements ILoginPresenter{
     private Login login;
     private PermissionHelper permission;
     private ManageFileHelper manageFile;
-    private ControlAccessHelper deny;
+    private ControlAccessHelper denyaccess;
+    private static int count_intent;
 
     @Override
     public void onCreate(ILoginView view){
@@ -40,13 +41,50 @@ public class LoginViewPresenter implements ILoginPresenter{
     }
 
     @Override
-    public void onLogin(String password){
-        deny = new ControlAccessHelper(manageFile, login);
+    public void onLoginValidation(String password){
+        denyaccess = new ControlAccessHelper(manageFile, login);
         if((manageFile.checkFiles(manageFile.base, manageFile.dir, manageFile.roottxt,
             manageFile.optionmsg)) == 0){
-            view.showMessage("En este punto se valida el login");
+
+            if(!denyaccess.checkDenyTime()) {
+
+                if ((count_intent = denyaccess.getDenyCont()) < 4) {
+                    onLogin(password);
+                }else{
+                    denyaccess.setDenyAll(count_intent);
+                    view.onDisabledButtonLogin();
+                    view.showMessage("Bloqueado");
+                }
+
+            } else {
+                view.onDisabledButtonLogin();
+                view.showMessage("Bloqueado");
+            }
+
         }else{
-            view.showMessage("La primera vez se debe bloquear, sino es q no estaban archivos");
+            denyaccess.setDenyAll(0);
+            view.onDisabledButtonLogin();
+            view.showMessage("Bloqueado");
+        }
+    }
+
+    @Override
+    public void onLogin(String password){
+        if (login.getPassword().equals(password)) {
+            view.goToMainActivity();
+
+        } else {
+            count_intent++;
+            if(count_intent >= 4){
+
+                denyaccess.setDenyAll(0);
+                view.onDisabledButtonLogin();
+                view.showMessage("Bloqueado");
+
+            } else {
+                denyaccess.setDenyCount(count_intent);
+                view.showMessage("Contraseña incorrecta");
+            }
         }
     }
 

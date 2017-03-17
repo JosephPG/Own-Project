@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     EditText login_edtpassword;
     EditText changepassword_, changepassword_new;
+    Button login_btn_ingresar;
     TextView changepassword_ok, changepassword_cancel;
     LoginViewPresenter loginViewPresenter;
 
@@ -34,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         setContentView(R.layout.activity_login);
 
         login_edtpassword = (EditText) findViewById(R.id.login_edt_password);
-
+        login_btn_ingresar = (Button) findViewById(R.id.login_btn_ingresar);
         loginViewPresenter = new LoginViewPresenter();
         loginViewPresenter.onCreate(this);
         loginViewPresenter.checkPermits();
@@ -58,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @Override
     public void onClickLogin(View view){
-        loginViewPresenter.onLogin(login_edtpassword.getText().toString());
+        loginViewPresenter.onLoginValidation(login_edtpassword.getText().toString());
     }
 
     @Override
@@ -124,5 +126,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     public void goToMainActivity(){
         finish();
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    @Override
+    public void onDisabledButtonLogin() {
+        login_btn_ingresar.setEnabled(false);
     }
 }

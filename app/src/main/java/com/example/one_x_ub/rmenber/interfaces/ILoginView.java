@@ -31,4 +31,6 @@ public interface ILoginView {
 
     public void goToMainActivity();
 
+    public void onDisabledButtonLogin();
+
 }

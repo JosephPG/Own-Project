@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class ManageFileHelper {
 
-    public static final String msg = "********************************************";
+    public static final String msg = "************************";
     private static final String msgfill = "ñññqwe12ññññqweqwe//dfs";
     public static final String optionmsg = msg + "\n" + msgfill + "\n" + msgfill;
 
@@ -91,6 +91,20 @@ public class ManageFileHelper {
             e.printStackTrace();
         }
         return buffer;
+    }
+
+    public static void setLines(ArrayList<String> buffer, String locate, String filename, int type){
+        File file = new File(locate, filename);
+        try {
+            FileWriter fileWriter = (type == 0)? new FileWriter(file): new FileWriter(file, true);
+            for (int i = 0; i < buffer.size(); i++) {
+                fileWriter.write(buffer.get(i));
+            }
+            fileWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
