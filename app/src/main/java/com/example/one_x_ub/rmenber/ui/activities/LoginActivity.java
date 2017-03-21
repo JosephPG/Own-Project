@@ -1,9 +1,11 @@
 package com.example.one_x_ub.rmenber.ui.activities;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +43,19 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         loginViewPresenter.onCreate(this);
         loginViewPresenter.checkPermits();
         loginViewPresenter.checkSession();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            loginViewPresenter.onAccess();
+        } else {
+            if(getApplicationContext().checkSelfPermission
+               (Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                loginViewPresenter.onAccess();
+            }
+        }
     }
 
     @Override
@@ -116,9 +131,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         /** Callback, llamado despues de solicitar permisos **/
         if(requestCode == 1){
-                if(grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED){
-                    loginViewPresenter.checkPermits();
-                }
+            if(grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                loginViewPresenter.checkPermits();
+            } else {
+                loginViewPresenter.onAccess();
+            }
         }
     }
 
@@ -129,7 +146,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     }
 
     @Override
-    public void onDisabledButtonLogin() {
-        login_btn_ingresar.setEnabled(false);
+    public void onDisabledButtonLogin(boolean state) {
+        if(state) {
+            login_btn_ingresar.setEnabled(true);
+        }else{
+            login_btn_ingresar.setEnabled(false);
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.example.one_x_ub.rmenber.models;
 
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.provider.SyncStateContract;
 
 import com.example.one_x_ub.rmenber.database.CRUD;
 import com.example.one_x_ub.rmenber.interfaces.DBConstants;
@@ -56,6 +58,7 @@ public class Login implements DBConstants{
 
     public void setTextparam_1(String textparam_1){
         this.textparam_1 = textparam_1;
+        setUpdateAccesParam(1);
     }
 
     public String getTextparam_2(){
@@ -64,6 +67,7 @@ public class Login implements DBConstants{
 
     public void setTextparam_2(String textparam_2){
         this.textparam_2 = textparam_2;
+        setUpdateAccesParam(2);
     }
 
     public String getTextsalt_1(){
@@ -72,6 +76,7 @@ public class Login implements DBConstants{
 
     public void setTextsalt_1(String textsalt_1){
         this.textsalt_1 = textsalt_1;
+        setUpdateAccessSalt(1);
     }
 
     public String getTextsalt_2(){
@@ -80,6 +85,7 @@ public class Login implements DBConstants{
 
     public void setTextsalt_2(String textsalt_2){
         this.textsalt_2 = textsalt_2;
+        setUpdateAccessSalt(2);
     }
 
     public void selectLoginInfo(){
@@ -100,6 +106,32 @@ public class Login implements DBConstants{
 
     public void selectLoginTema(){
         /** Obtener el tema y codigos **/
+    }
+
+    public void setUpdateAccesParam(int id){
+        ContentValues contentValues = new ContentValues();
+        if(id == 1) {
+            contentValues.put(Constants_text_param, textparam_1);
+        } else {
+            contentValues.put(Constants_text_param2, textparam_2);
+        }
+
+        if(crud.setUpdate(Constants_table, contentValues, Constants_update_textparam_cond) != 1){
+            throw new IllegalArgumentException("No update Param Text - Login");
+        }
+    }
+
+    public void setUpdateAccessSalt(int id){
+        ContentValues contentValues = new ContentValues();
+        if(id == 1) {
+            contentValues.put(Constants_text_salt, textsalt_1);
+        } else {
+            contentValues.put(Constants_text_salt2, textsalt_2);
+        }
+
+        if(crud.setUpdate(Constants_table, contentValues, Constants_update_textparam_cond) != 1){
+            throw new IllegalArgumentException("No update Param Salt - Login");
+        }
     }
 
 }

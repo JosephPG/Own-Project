@@ -14,9 +14,9 @@ public interface ILoginPresenter {
 
     public void checkSession();
 
-    public void onLoginValidation(String password);
+    public void onAccess();
 
-    public void onLogin(String password);
+    public void onLoginValidation(String password);
 
     public Object[] getViewDialog(AlertDialogView viewDialog);
 

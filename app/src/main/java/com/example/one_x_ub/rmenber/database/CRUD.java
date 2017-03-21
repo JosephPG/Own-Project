@@ -1,5 +1,6 @@
 package com.example.one_x_ub.rmenber.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
@@ -25,11 +26,13 @@ public class CRUD {
         return data;
     }
 
-    public int setUpdate(String table, String[][] data, String cond){
+    public int setUpdate(String table, ContentValues contentValues, String cond){
         int resp = 0;
-
-
-
+        try {
+            resp = adminSQLiteOH.getWritableDatabase().update(table, contentValues, cond, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return resp;
     }
 }

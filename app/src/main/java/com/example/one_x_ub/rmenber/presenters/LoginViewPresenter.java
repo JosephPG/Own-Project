@@ -40,45 +40,46 @@ public class LoginViewPresenter implements ILoginPresenter{
         }
     }
 
+
     @Override
-    public void onLoginValidation(String password){
+    public void onAccess(){
         denyaccess = new ControlAccessHelper(manageFile, login);
         if((manageFile.checkFiles(manageFile.base, manageFile.dir, manageFile.roottxt,
-            manageFile.optionmsg)) == 0){
+                manageFile.optionmsg)) == 0){
 
             if(!denyaccess.checkDenyTime()) {
 
-                if ((count_intent = denyaccess.getDenyCont()) < 4) {
-                    onLogin(password);
-                }else{
-                    denyaccess.setDenyAll(count_intent);
-                    view.onDisabledButtonLogin();
+                if ((count_intent = denyaccess.getDenyCont()) >= 4) {
+                    view.onDisabledButtonLogin(false);
                     view.showMessage("Bloqueado");
+                    view.showMessage("3");
+                } else {
+                    view.onDisabledButtonLogin(true);
                 }
 
             } else {
-                view.onDisabledButtonLogin();
+                view.onDisabledButtonLogin(false);
                 view.showMessage("Bloqueado");
+                view.showMessage("2");
             }
-
-        }else{
+        } else {
             denyaccess.setDenyAll(0);
-            view.onDisabledButtonLogin();
+            view.onDisabledButtonLogin(false);
             view.showMessage("Bloqueado");
+            view.showMessage("1");
         }
     }
 
     @Override
-    public void onLogin(String password){
+    public void onLoginValidation(String password){
         if (login.getPassword().equals(password)) {
             view.goToMainActivity();
-
         } else {
             count_intent++;
-            if(count_intent >= 4){
 
+            if(count_intent >= 4){
                 denyaccess.setDenyAll(0);
-                view.onDisabledButtonLogin();
+                view.onDisabledButtonLogin(false);
                 view.showMessage("Bloqueado");
 
             } else {
@@ -87,6 +88,7 @@ public class LoginViewPresenter implements ILoginPresenter{
             }
         }
     }
+
 
     @Override
     public Object[] getViewDialog(AlertDialogView viewDialog){

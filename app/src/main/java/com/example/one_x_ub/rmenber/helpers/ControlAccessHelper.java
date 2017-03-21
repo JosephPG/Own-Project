@@ -1,5 +1,9 @@
 package com.example.one_x_ub.rmenber.helpers;
 
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
 import com.example.one_x_ub.rmenber.models.Login;
 
 import java.util.ArrayList;
@@ -12,31 +16,24 @@ public class ControlAccessHelper {
 
     private ManageFileHelper manageFile;
     private Login login;
-    private long timestamp;
 
     public ControlAccessHelper(ManageFileHelper manageFile, Login login){
         this.manageFile = manageFile;
         this.login = login;
-        this.timestamp = System.currentTimeMillis()/1000;
     }
 
     public boolean checkDenyTime(){
         ArrayList<String> buffer = manageFile.getLines(manageFile.dirbase, manageFile.roottxt);
         long time;
-        boolean deny;
+        boolean deny = false;
 
         if(buffer.size() > 1 && !checkData(buffer.get(1))) {
             time = Long.parseLong(getDecrypt(buffer.get(1), login.getTextparam_1(),
                     login.getTextsalt_1()));
-            if (time == 676 || (time - timestamp) < 300) {
+
+            if (time == 676 || (System.currentTimeMillis()/1000 - time) < 300) {
                 deny = true;
-            } else {
-                deny = false;
             }
-
-        } else if(buffer.size() > 1 && checkData(buffer.get(1))) {
-            deny = false;
-
         } else {
             deny = true;
         }
@@ -61,20 +58,30 @@ public class ControlAccessHelper {
 
     public void setDenyCount(int cont){
         ArrayList<String> buffer = manageFile.getLines(manageFile.dirbase, manageFile.roottxt);
-        String contcipher = getEncrypt(String.valueOf(cont), 2);
-        buffer.set(2, contcipher);
-        manageFile.setLines(buffer, manageFile.dirbase, manageFile.roottxt, 0);
+        if(buffer.size() == 3) {
+            String contcipher = getEncrypt(String.valueOf(cont), 2);
+            buffer.set(0, manageFile.msg + "\n");
+            buffer.set(1, buffer.get(1) + "\n");
+            buffer.set(2, contcipher);
+            manageFile.setLines(buffer, manageFile.dirbase, manageFile.roottxt, 0);
+        } else {
+            setDenyAll(0);
+        }
     }
 
     public void setDenyAll(int cont){
         ArrayList<String> buffer = manageFile.getLines(manageFile.dirbase, manageFile.roottxt);
-        long time = System.currentTimeMillis()/1000;
-        String timecipher = getEncrypt(String.valueOf(time), 1);
-        String contcipher = getEncrypt(String.valueOf(cont), 2);
-        buffer.set(0, manageFile.msg+"\n");
-        buffer.set(1, timecipher);
-        buffer.set(2, contcipher);
-        manageFile.setLines(buffer, manageFile.dirbase, manageFile.roottxt, 0);
+        if(buffer.size() == 3) {
+            long time = System.currentTimeMillis() / 1000;
+            String timecipher = getEncrypt(String.valueOf(time), 1);
+            String contcipher = getEncrypt(String.valueOf(cont), 2);
+            buffer.set(0, manageFile.msg + "\n");
+            buffer.set(1, timecipher);
+            buffer.set(2, contcipher);
+            manageFile.setLines(buffer, manageFile.dirbase, manageFile.roottxt, 0);
+        } else {
+            setDenyAll(0);
+        }
     }
 
     public String getDecrypt(String data, String iv, String salt){
