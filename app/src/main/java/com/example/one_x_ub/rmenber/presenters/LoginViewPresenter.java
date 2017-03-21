@@ -52,7 +52,6 @@ public class LoginViewPresenter implements ILoginPresenter{
                 if ((count_intent = denyaccess.getDenyCont()) >= 4) {
                     view.onDisabledButtonLogin(false);
                     view.showMessage("Bloqueado");
-                    view.showMessage("3");
                 } else {
                     view.onDisabledButtonLogin(true);
                 }
@@ -60,20 +59,21 @@ public class LoginViewPresenter implements ILoginPresenter{
             } else {
                 view.onDisabledButtonLogin(false);
                 view.showMessage("Bloqueado");
-                view.showMessage("2");
             }
+
         } else {
             denyaccess.setDenyAll(0);
             view.onDisabledButtonLogin(false);
             view.showMessage("Bloqueado");
-            view.showMessage("1");
         }
     }
 
     @Override
     public void onLoginValidation(String password){
         if (login.getPassword().equals(password)) {
+
             view.goToMainActivity();
+
         } else {
             count_intent++;
 

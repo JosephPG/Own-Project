@@ -70,18 +70,14 @@ public class ControlAccessHelper {
     }
 
     public void setDenyAll(int cont){
-        ArrayList<String> buffer = manageFile.getLines(manageFile.dirbase, manageFile.roottxt);
-        if(buffer.size() == 3) {
-            long time = System.currentTimeMillis() / 1000;
-            String timecipher = getEncrypt(String.valueOf(time), 1);
-            String contcipher = getEncrypt(String.valueOf(cont), 2);
-            buffer.set(0, manageFile.msg + "\n");
-            buffer.set(1, timecipher);
-            buffer.set(2, contcipher);
-            manageFile.setLines(buffer, manageFile.dirbase, manageFile.roottxt, 0);
-        } else {
-            setDenyAll(0);
-        }
+        ArrayList<String> buffer = new ArrayList<String>();
+        long time = System.currentTimeMillis() / 1000;
+        String timecipher = getEncrypt(String.valueOf(time), 1);
+        String contcipher = getEncrypt(String.valueOf(cont), 2);
+        buffer.add(manageFile.msg + "\n");
+        buffer.add(timecipher);
+        buffer.add(contcipher);
+        manageFile.setLines(buffer, manageFile.dirbase, manageFile.roottxt, 0);
     }
 
     public String getDecrypt(String data, String iv, String salt){
