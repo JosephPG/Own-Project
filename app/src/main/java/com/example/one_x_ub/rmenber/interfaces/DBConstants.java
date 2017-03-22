@@ -45,6 +45,6 @@ public interface DBConstants {
     final String Constants_select_login_info = "select * from " + Constants_table + " where " +
                  Constants_id + "=" + Constants_id_data;
 
-    final String Constants_update_textparam_cond = Constants_id + "=" + Constants_id_data;
+    final String Constants_update_cond = Constants_id + "=" + Constants_id_data;
 
 }

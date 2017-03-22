@@ -71,7 +71,7 @@ public class LoginViewPresenter implements ILoginPresenter{
     @Override
     public void onLoginValidation(String password){
         if (login.getPassword().equals(password)) {
-
+            login.setStatus(1);
             view.goToMainActivity();
 
         } else {

@@ -20,4 +20,9 @@
 
     <string name="action_settings">Settings</string>
 
+
+    <!-- activity_main -->
+    <string name="main_temas">Temas</string>
+    <string name="main_NFC">NFC</string>
+    <string name="main_cerrarsesion">Cerrar sesión</string>
 </resources>

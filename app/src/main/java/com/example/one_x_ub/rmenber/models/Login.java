@@ -50,6 +50,7 @@ public class Login implements DBConstants{
 
     public void setStatus(int status) {
         this.status = status;
+        setUpdateStatus();
     }
 
     public String getTextparam_1(){
@@ -108,6 +109,14 @@ public class Login implements DBConstants{
         /** Obtener el tema y codigos **/
     }
 
+    public void setUpdateStatus(){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constants_status, status);
+        if(crud.setUpdate(Constants_table, contentValues, Constants_update_cond) != 1){
+            throw new IllegalArgumentException("No update Status - Login");
+        }
+    }
+
     public void setUpdateAccesParam(int id){
         ContentValues contentValues = new ContentValues();
         if(id == 1) {
@@ -116,7 +125,7 @@ public class Login implements DBConstants{
             contentValues.put(Constants_text_param2, textparam_2);
         }
 
-        if(crud.setUpdate(Constants_table, contentValues, Constants_update_textparam_cond) != 1){
+        if(crud.setUpdate(Constants_table, contentValues, Constants_update_cond) != 1){
             throw new IllegalArgumentException("No update Param Text - Login");
         }
     }
@@ -129,7 +138,7 @@ public class Login implements DBConstants{
             contentValues.put(Constants_text_salt2, textsalt_2);
         }
 
-        if(crud.setUpdate(Constants_table, contentValues, Constants_update_textparam_cond) != 1){
+        if(crud.setUpdate(Constants_table, contentValues, Constants_update_cond) != 1){
             throw new IllegalArgumentException("No update Param Salt - Login");
         }
     }
