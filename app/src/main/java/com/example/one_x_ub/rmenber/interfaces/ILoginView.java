@@ -21,7 +21,7 @@ public interface ILoginView {
 
     public void onClickLogin(View view);
 
-    public void showCluePassword(View view);
+    public void onCluePassword(View view);
 
     public void showDialogChangePassword(View view);
 
@@ -33,4 +33,5 @@ public interface ILoginView {
 
     public void onDisabledButtonLogin(boolean state);
 
+    public void onDisabledChangePasswordOK();
 }

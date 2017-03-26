@@ -42,6 +42,7 @@ public class Login implements DBConstants{
 
     public void setPassword(String password) {
         this.password = password;
+        setUpdatePassword();
     }
 
     public int getStatus() {
@@ -104,9 +105,16 @@ public class Login implements DBConstants{
         }
     }
 
-
     public void selectLoginTema(){
         /** Obtener el tema y codigos **/
+    }
+
+    public void setUpdatePassword(){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constants_password, password);
+        if(crud.setUpdate(Constants_table, contentValues, Constants_update_cond) != 1){
+            throw new IllegalArgumentException("No update password - Login");
+        }
     }
 
     public void setUpdateStatus(){

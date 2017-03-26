@@ -18,6 +18,9 @@ public interface ILoginPresenter {
 
     public void onLoginValidation(String password);
 
+    public void onChangePassword(String[] passwords);
+
     public Object[] getViewDialog(AlertDialogView viewDialog);
 
+    public void onCluePass();
 }

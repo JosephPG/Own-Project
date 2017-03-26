@@ -61,7 +61,7 @@
         android:layout_height="31dp"
         android:textSize="15dp"
         android:background="@drawable/button_circle_effect"
-        android:onClick="showCluePassword"
+        android:onClick="onCluePassword"
         android:layout_marginTop="73dp"
         android:paddingTop="4dp"
         android:id="@+id/login_txt_pista"

@@ -1,10 +1,8 @@
 package com.example.one_x_ub.rmenber.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
+import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,11 +13,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.one_x_ub.rmenber.R;
+import com.example.one_x_ub.rmenber.database.CRUD;
 import com.example.one_x_ub.rmenber.interfaces.IMainView;
+import com.example.one_x_ub.rmenber.presenters.MainViewPresenter;
 import com.example.one_x_ub.rmenber.ui.fragments.TemasFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IMainView {
+
+    MainViewPresenter mainViewPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        goTemasFragment();
+
+        mainViewPresenter = new MainViewPresenter();
+        mainViewPresenter.onCreate(this);
+        goFragment(new TemasFragment());
     }
 
     @Override
@@ -78,7 +83,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_temas) {
-            // Handle the camera action
+            // Handle the Temas action
+            goFragment(new TemasFragment());
         } else if (id == R.id.nav_nfc) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -88,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_close) {
-
+            mainViewPresenter.onCloseSession();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -97,10 +103,21 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void goTemasFragment() {
+    public void goFragment(Fragment fragment) {
         this.getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.content_frame, new TemasFragment())
+                .replace(R.id.content_frame, fragment)
                 .commit();
+    }
+
+    @Override
+    public void goActivity() {
+        finish();
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    @Override
+    public CRUD onInstaceCRUD() {
+        return new CRUD(this);
     }
 }

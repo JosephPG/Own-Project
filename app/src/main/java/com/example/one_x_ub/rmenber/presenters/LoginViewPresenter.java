@@ -89,6 +89,26 @@ public class LoginViewPresenter implements ILoginPresenter{
         }
     }
 
+    @Override
+    public void onChangePassword(String[] passwords) {
+        if (login.getPassword().equals(passwords[0]) && !passwords[0].equals(passwords[1]) &&
+                passwords[1].length() >= 5) {
+            login.setPassword(passwords[1]);
+        } else {
+            count_intent++;
+
+            if(count_intent >= 4){
+                denyaccess.setDenyAll(0);
+                view.onDisabledButtonLogin(false);
+                view.onDisabledChangePasswordOK();
+                view.showMessage("Bloqueado");
+
+            } else {
+                denyaccess.setDenyCount(count_intent);
+                view.showMessage("Error al cambiar contraseña");
+            }
+        }
+    }
 
     @Override
     public Object[] getViewDialog(AlertDialogView viewDialog){
@@ -97,6 +117,18 @@ public class LoginViewPresenter implements ILoginPresenter{
         o_dialog[0] = viewDialog.getView();
         o_dialog[1] = viewDialog.getAlertDialog();
         return o_dialog;
+    }
+
+    @Override
+    public void onCluePass(){
+        String resp = "";
+        for(int i=0; i < login.getPassword().length(); i++){
+            resp += "*";
+            if(i == 4){
+                resp += login.getPassword().charAt(i);
+            }
+        }
+        view.showMessage(resp);
     }
 
 }

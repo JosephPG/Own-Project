@@ -79,8 +79,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     }
 
     @Override
-    public void showCluePassword(View view){
-
+    public void onCluePassword(View view){
+        loginViewPresenter.onCluePass();
     }
 
     @Override
@@ -101,6 +101,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @Override
     public void onClickChangePasswordOptions(final AlertDialog alertDialog){
+       if(!login_btn_ingresar.isEnabled()) {
+           changepassword_ok.setEnabled(false);
+       } else {
+           changepassword_ok.setEnabled(true);
+       }
        changepassword_cancel.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
@@ -111,6 +116,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
        changepassword_ok.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
+               String[] passwords = new String[2];
+               passwords[0] = changepassword_.getText().toString();
+               passwords[1] = changepassword_new.getText().toString();
+               loginViewPresenter.onChangePassword(passwords);
                alertDialog.dismiss();
            }
        });
@@ -153,4 +162,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
             login_btn_ingresar.setEnabled(false);
         }
     }
+
+    @Override
+    public void onDisabledChangePasswordOK(){
+        changepassword_ok.setEnabled(false);
+    }
+
+
 }

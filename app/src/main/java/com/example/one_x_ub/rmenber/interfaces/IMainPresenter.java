@@ -5,4 +5,12 @@ package com.example.one_x_ub.rmenber.interfaces;
  */
 
 public interface IMainPresenter {
+
+    public void onCreate(IMainView mainView);
+
+    public void checkInstanceCRUD();
+
+    public void onCloseSession();
+
+
 }
